@@ -4,8 +4,8 @@
 
 # Asienta
 
-Reads supplier invoices with an AI model and turns them into journal entries<br>
-for **Sage 50, ContaPlus, A3, Holded, Xero, QuickBooks** or plain CSV.
+Reads supplier invoices with an LLM and turns them into journal entries,<br>
+exported in the import format of your accounting software.
 
 [![CI](https://github.com/73bruno/asienta/actions/workflows/ci.yml/badge.svg)](https://github.com/73bruno/asienta/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.10%2B-3776AB?logo=python&logoColor=white)
@@ -14,83 +14,76 @@ for **Sage 50, ContaPlus, A3, Holded, Xero, QuickBooks** or plain CSV.
 
 <img src="docs/media/demo.gif" width="100%" alt="An emailed receipt photo is read, a misread tax ID is fixed in one click, a wholesaler's invoice is split by account and everything is exported">
 
-<sub>The demo app, fictional data · [MP4](docs/media/demo.mp4) · [Español](README.es.md)</sub>
+<sub>The demo, with fictional data · [MP4](docs/media/demo.mp4) · [Español](README.es.md)</sub>
 
 </div>
 
 ## What it does
 
-1. **Collects invoices** from an email inbox, a watched folder, drag & drop, the phone camera or an HTTP API.
-2. **Reads each one** with the AI model you choose, into a fixed schema: supplier, tax ID, number, date, lines, VAT.
-3. **Proposes the entry** from your own ledger: which supplier, which expense account, how to split the lines, which posting date.
-4. **Checks it**: tax-ID check digits, sums, VAT against the rate, duplicates, dates in a VAT quarter already filed.
-5. **You approve**, and it writes one file your accounting software imports.
+1. Collects invoices (PDFs and photos) from an email inbox, a folder, the browser or an HTTP API.
+2. Sends each one to an LLM that extracts supplier, tax ID, number, date, lines and VAT into a fixed JSON schema.
+3. Proposes the journal entry from your ledger: supplier account, expense accounts, line split, posting date.
+4. Runs checks: tax-ID check digits, totals, VAT per rate, duplicates, closed VAT periods.
+5. After a person approves, writes one import file for the accounting program.
 
-The model only does step 2. Everything else is plain code, so every proposal can be explained and tested, and the model can be swapped.
+The LLM only does step 2. Steps 3 and 4 are deterministic Python, so every proposal can be traced and tested, and the model can be replaced without touching them.
 
-## Works with any AI model
+## Included
 
-The model only has to read a PDF or photo and return JSON, so any vision model works. **Gemini is the default.** These are the Gemini models tested on 27 real supplier invoices (162 fields), checked by hand:
+- **Inputs**: IMAP inbox (forwarded mail and signature logos handled), watched folder, drag & drop, phone camera, HTTP API.
+- **LLM providers**: Gemini (default), Claude, OpenAI, any OpenAI-compatible endpoint (Mistral, OpenRouter, Azure…), local models through Ollama, LM Studio or vLLM.
+- **Ledger sources** (read-only): CSV files, a Sage 50 / ContaPlus accounts export, or a live connection to Sage 50's SQL Server.
+- **Export formats**: Sage 50 (XDIARIO), CSV and JSON. ContaPlus, Sage 50 Excel importer, a3ASESOR, Holded, Xero and QuickBooks Online are written from their published specs and tested, but not yet imported into the real programs (beta).
+- **Tax rules**: Spain (NIF/NIE/CIF check digits, IVA, IRPF withholding, equivalence surcharge, credit notes, filed VAT quarters).
+- **Web UI**: review screen, English and Spanish, light and dark, your own name, colour and logo.
 
-| Model | Fields right | Invoices perfect | Silent errors | Cost / invoice | Time / invoice |
-|---|:---:|:---:|:---:|:---:|:---:|
-| **gemini-3.8-flash** (default) | 160/162 | 25/27 | 1 | 0.9 ¢ | 6 s |
-| gemini-3.7-flash | 160/162 | 25/27 | 1 | 0.8 ¢ | 6 s |
-| gemini-3.5-flash | 160/162 | 25/27 | 0 | 3.5 ¢ | 13 s |
-| gemini-3.5-flash-lite | 156/162 | 21/27 | 2 | 0.3 ¢ | 3 s |
-| gemini-3.1-flash-lite | 160/162 | 25/27 | 0 | 0.2 ¢ | 4 s |
+## Accuracy
 
-*Silent errors* are wrong values that no check warned about; the others were flagged for review. Costs in US cents at September 2026 prices.
+With the default model, `gemini-3.8-flash`, it reads **160–161 of 162 fields** right on a set of 27 real supplier invoices checked by hand: handwritten invoices, thermal-printer tickets, crumpled photos, scans, credit notes and a PDF with three invoices in it. It was chosen after comparing five Gemini models on that set, where it tied for the most fields read right, at about 6 s and under one US cent per invoice.
 
-Claude, OpenAI, any OpenAI-compatible API (Mistral, OpenRouter, Azure…) and local models (Ollama, LM Studio, vLLM) plug in the same way, with one line in `config.ini`. They weren't part of this test: `asienta bench` produces the same table for any model on your own invoices.
+Other providers plug in the same way but haven't been measured on that set. `asienta bench` runs the same comparison on your own invoices ([details](docs/ai-models.md)).
 
-## Works with your accounting software
-
-- **Sage 50**: XDIARIO import through its free add-on, plus a live, read-only connection to its SQL Server to know your suppliers and accounts.
-- **ContaPlus, Sage 50 Excel importer, a3ASESOR, Holded, Xero, QuickBooks Online** *(beta)*: written from each program's published import format and covered by tests, not yet imported into the real program. Try a test company first and [report how it went](https://github.com/73bruno/asienta/issues/new?template=exporter.md).
-- **CSV and JSON** for anything else.
-
-It reads your ledger (suppliers, accounts, what each supplier usually goes to) from CSV exports of any program, a Sage 50 / ContaPlus accounts export, or Sage 50 live.
-
-## Invoices come in by
-
-Email (an IMAP inbox, forwarded mail included), a watched folder (scanner, Dropbox, shared drive), drag & drop, the phone camera or an [HTTP API](docs/api.md) for n8n, Zapier or scripts.
-
-## Try the demo
+## Quick start
 
 ```bash
 pip install "git+https://github.com/73bruno/asienta"
-asienta --demo
+asienta --demo            # http://localhost:8760, fictional ledger and invoices, no API key
 ```
 
-A fictional business with its ledger and a month of invoices, at `http://localhost:8760`. No API key needed. Click **Load samples**, or **Mailbox › Send a test email** to see a forwarded receipt photo arrive.
-
-## Use it with your data
+With your own data:
 
 ```bash
-asienta init             # creates config.ini and a ledger/ folder with example CSVs
-asienta check            # tests the AI model and the ledger connection
-asienta                  # http://localhost:8760
+asienta init              # writes config.ini and ledger/ with example CSVs
+export GEMINI_API_KEY=…
+asienta check             # checks the model and the ledger connection
+asienta
 ```
 
-Everything is chosen in `config.ini`:
+## Configuration
+
+Each part is chosen in `config.ini`:
 
 ```ini
 [reader]
 provider = gemini              ; gemini | claude | openai | ollama
-model = gemini-3.8-flash       ; key in GEMINI_API_KEY, ANTHROPIC_API_KEY or OPENAI_API_KEY
+model = gemini-3.8-flash
 
 [ledger]
-source = csv                   ; csv | sage50 (live, read-only)
+source = csv                   ; csv | sage50
 
 [export]
 format = sage50                ; sage50 | contaplus | sage50xls | a3 | holded | xero | quickbooks | csv | json
 
 [inbox]
-folder = ~/Dropbox/Invoices    ; optional; [mailbox] for an IMAP inbox
+folder = ~/Dropbox/Invoices    ; optional, [mailbox] for IMAP
+
+; line categories the LLM assigns, and the account each one goes to
+[categories]
+food   = 600000100 | food, ingredients, sauces
+drinks = 600000200 | wine, beer, soft drinks, water, coffee
 ```
 
-To run the model locally, so invoices never leave your network:
+To keep invoices on your network, point it at a local model:
 
 ```ini
 [reader]
@@ -98,11 +91,13 @@ provider = ollama
 model = llama3.2-vision
 ```
 
-Guides: [AI models](docs/ai-models.md) · [ledger](docs/ledger.md) · [exporters](docs/exporters.md) · [email](docs/mailbox.md) · [folder and API](docs/api.md) · [deploying](docs/deploy.md) · [customizing](docs/customizing.md)
+The minimum ledger is one CSV with your chart of accounts and suppliers; a second one with what each supplier's invoices were booked to lets it propose accounts from day one. Formats in [docs/ledger.md](docs/ledger.md).
 
-## Add your own
+## Adapting it
 
-Readers, ledger sources and exporters are small classes registered in a dictionary. A complete exporter:
+Readers, ledger sources and exporters are small classes registered in a dictionary.
+
+**Another accounting program.** An exporter receives approved, balanced entries and writes a file:
 
 ```python
 class MySoftware(Exporter):
@@ -119,38 +114,57 @@ class MySoftware(Exporter):
         return result
 ```
 
-Once registered, the existing tests run it against every demo invoice. More in [extending](docs/extending.md).
+Registered in `asienta/exporters/__init__.py`, it is picked up by the test that runs every exporter over the demo invoices.
+
+**Another LLM.** If it has an OpenAI-compatible endpoint, set `provider = openai` and `base_url`. Otherwise a reader is one class with a `read()` method that returns the schema's JSON.
+
+**Another ledger.** Any object with a `load()` that returns account names, tax IDs and usual accounts per supplier.
+
+**Another country.** Tax-ID validation and VAT periods live in `asienta/spain.py`; a sibling module for another country is the main change.
+
+**Integrations.** Everything the UI does goes through a small HTTP API: upload, read the result, approve, export, download ([docs/api.md](docs/api.md)).
+
+Step-by-step guides in [docs/extending.md](docs/extending.md).
 
 ## How it decides
 
-- **Supplier**: by tax ID in your ledger, then by name. Pick one by hand once and it remembers.
-- **Account**: the one this supplier's invoices went to most this year, shown with the reason.
-- **Split**: the model tags each line with a category (food, drinks, cleaning… your own list) and each category has an account. The wine on a food invoice goes to drinks.
-- **Date**: the invoice date, unless that VAT quarter is already filed. Then it moves to the first open day.
-- **Checks**: a tax ID that fails its check digit gets a one-click fix from your ledger. Totals, VAT, future dates, duplicates, withholding and possible fixed assets are flagged before approval.
+- **Supplier**: tax ID in your ledger, then name. A supplier picked by hand is remembered.
+- **Accounts**: the account this supplier's invoices went to most this year; lines are split by category, so the wine on a food wholesaler's invoice goes to drinks.
+- **Posting date**: the invoice date, or the first open day if that VAT quarter is already filed.
+- **Checks**: a tax ID that fails its check digit gets a one-click fix from the ledger; totals, VAT, dates, duplicates, withholding and possible fixed assets are flagged before approval.
 
-To compare models on your own invoices, `asienta bench` counts the fields each one gets wrong and how many of those no check warned about. [How it works →](docs/how-it-works.md)
+More in [docs/how-it-works.md](docs/how-it-works.md).
 
-## Performance
+## Project layout
 
-| | |
-|---|---|
-| AI reading | 3–13 s per invoice depending on the model (see above), three in parallel, in the background |
-| Rules and checks | ~2 ms per invoice |
-| Export | 1,000 invoices in under 0.25 s |
-| Memory / start-up | 26 MB / under 0.5 s |
-| Package | 240 KB, no dependencies: standard-library Python, SQLite, plain JavaScript |
+```
+asienta/
+  extraction/   LLM readers (gemini, claude, openai_compat, demo) and the JSON schema
+  ledger/       ledger sources (csv, sage50) and the supplier/account directory
+  rules.py      supplier matching, account choice, line split, posting date
+  checks.py     everything flagged before approval
+  exporters/    one module per accounting format
+  spain.py      Spanish tax IDs and VAT periods
+  mailbox.py    IMAP intake
+  app.py        the pipeline; server.py the HTTP API; web/ the UI (no build step)
+tests/          full pipeline on the demo data, exporters, API, readers (mocked)
+scripts/        demo data, demo video, speed measurement
+```
 
-Measured on an Apple M1; run `python scripts/speed.py` on yours. Only the AI reading costs money, and nothing with a local model.
+Standard library only: `http.server`, `sqlite3`, `urllib`, plain JavaScript. Optional packages for Claude, Sage 50 SQL and Excel. The package is 240 KB and idles at 26 MB of RAM; rules and checks take about 2 ms per invoice (`python scripts/speed.py`).
 
-## Good to know
+## Development
 
-- Tax logic is Spanish (NIF/NIE/CIF, IVA, IRPF, equivalence surcharge). Other countries need their own module; the rest of the pipeline doesn't depend on it.
-- It reads your ledger and never writes to it. It listens on localhost; anything else needs an access token or Tailscale.
-- The interface is in English and Spanish, light and dark, and can carry your own name, colour and logo.
+```bash
+git clone https://github.com/73bruno/asienta && cd asienta
+pip install -e ".[dev]"
+pytest                    # a few seconds, offline
+```
+
+Contributions are welcome, especially exporters for other programs and reports from importing the beta formats into the real ones. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-[MIT](LICENSE): free for any use, commercial included. Contributions welcome, especially exporters for other programs and reports from real imports. See [CONTRIBUTING.md](CONTRIBUTING.md).
+[MIT](LICENSE).
 
-<sub>Sage 50, ContaPlus, a3ASESOR, Holded, Xero, QuickBooks and the AI providers named are trademarks of their owners. This project isn't affiliated with any of them.</sub>
+<sub>Sage 50, ContaPlus, a3ASESOR, Holded, Xero and QuickBooks are trademarks of their owners; this project isn't affiliated with them.</sub>
