@@ -7,6 +7,7 @@
 Reads supplier invoices with an AI model and turns them into journal entries<br>
 for **Sage 50, ContaPlus, A3, Holded, Xero, QuickBooks** or plain CSV.
 
+[![CI](https://github.com/73bruno/asienta/actions/workflows/ci.yml/badge.svg)](https://github.com/73bruno/asienta/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.10%2B-3776AB?logo=python&logoColor=white)
 ![Dependencies](https://img.shields.io/badge/dependencies-0-16A34A)
 ![License](https://img.shields.io/badge/license-MIT-4F46E5)
