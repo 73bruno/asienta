@@ -1,0 +1,94 @@
+{
+ "invoices": [
+  {
+   "start_page": 1,
+   "doc_type": "invoice",
+   "supplier_name": "Brothers Butchery Demo, S.L.",
+   "supplier_tax_id": "B62834197",
+   "invoice_number": "BB-1182",
+   "invoice_date": "2026-09-08",
+   "accounting_date": null,
+   "vat_breakdown": [
+    {
+     "vat_rate": 10,
+     "base": 243.9,
+     "vat": 24.39
+    }
+   ],
+   "surcharge": 0,
+   "withholding": 0.0,
+   "total": 268.29,
+   "due_dates": [
+    {
+     "date": "2026-10-08",
+     "amount": 268.29
+    }
+   ],
+   "possible_asset": false,
+   "suggested_account": "",
+   "notes": [],
+   "lines": [
+    {
+     "description": "Beef tenderloin",
+     "amount": 136.5,
+     "vat_rate": 10,
+     "category": "food"
+    },
+    {
+     "description": "Iberian pork secreto",
+     "amount": 107.4,
+     "vat_rate": 10,
+     "category": "food"
+    }
+   ]
+  },
+  {
+   "start_page": 2,
+   "doc_type": "invoice",
+   "supplier_name": "Brothers Butchery Demo, S.L.",
+   "supplier_tax_id": "B62834197",
+   "invoice_number": "BB-1183",
+   "invoice_date": "2026-09-12",
+   "accounting_date": null,
+   "vat_breakdown": [
+    {
+     "vat_rate": 10,
+     "base": 128.5,
+     "vat": 12.85
+    }
+   ],
+   "surcharge": 0,
+   "withholding": 0.0,
+   "total": 141.35,
+   "due_dates": [
+    {
+     "date": "2026-10-12",
+     "amount": 141.35
+    }
+   ],
+   "possible_asset": false,
+   "suggested_account": "",
+   "notes": [],
+   "lines": [
+    {
+     "description": "Free-range whole chicken",
+     "amount": 51.2,
+     "vat_rate": 10,
+     "category": "food"
+    },
+    {
+     "description": "Fresh sausage",
+     "amount": 34.3,
+     "vat_rate": 10,
+     "category": "food"
+    },
+    {
+     "description": "Pork ribs",
+     "amount": 43.0,
+     "vat_rate": 10,
+     "category": "food"
+    }
+   ]
+  }
+ ]
+}

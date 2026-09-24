@@ -1,0 +1,21 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+
+# your data and secrets never go in the repo
+/config.ini
+/data/
+/ledger/
+/asienta-data/
+*.db
+*.db-wal
+*.db-shm
+.env
+bench.md

@@ -1,0 +1,46 @@
+{
+ "invoices": [
+  {
+   "start_page": 1,
+   "doc_type": "credit_note",
+   "supplier_name": "Orchard Fruit Demo, S.L.",
+   "supplier_tax_id": "B77140259",
+   "invoice_number": "CN-26/015",
+   "invoice_date": "2026-09-18",
+   "accounting_date": null,
+   "vat_breakdown": [
+    {
+     "vat_rate": 10,
+     "base": -18.4,
+     "vat": -1.84
+    },
+    {
+     "vat_rate": 4,
+     "base": -22.2,
+     "vat": -0.89
+    }
+   ],
+   "surcharge": 0,
+   "withholding": -0.0,
+   "total": -43.33,
+   "due_dates": [],
+   "possible_asset": false,
+   "suggested_account": "",
+   "notes": [],
+   "lines": [
+    {
+     "description": "Returned: vine tomatoes, damaged",
+     "amount": -22.2,
+     "vat_rate": 4,
+     "category": "food"
+    },
+    {
+     "description": "Returned: Hass avocado",
+     "amount": -18.4,
+     "vat_rate": 10,
+     "category": "food"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,47 @@
+{
+ "invoices": [
+  {
+   "start_page": 1,
+   "doc_type": "invoice",
+   "supplier_name": "Café Restaurante Norte",
+   "supplier_tax_id": "B87654321",
+   "invoice_number": "F-2026/04192",
+   "invoice_date": "2026-09-24",
+   "accounting_date": null,
+   "vat_breakdown": [
+    {
+     "vat_rate": 10,
+     "base": 34.09,
+     "vat": 3.41
+    }
+   ],
+   "surcharge": 0,
+   "withholding": 0.0,
+   "total": 37.5,
+   "due_dates": [],
+   "possible_asset": false,
+   "suggested_account": "",
+   "notes": [],
+   "lines": [
+    {
+     "description": "Menú Ejecutivo Diario",
+     "amount": 29.09,
+     "vat_rate": 10,
+     "category": "food"
+    },
+    {
+     "description": "Agua Mineral 1L",
+     "amount": 2.27,
+     "vat_rate": 10,
+     "category": "drinks"
+    },
+    {
+     "description": "Café solo",
+     "amount": 2.73,
+     "vat_rate": 10,
+     "category": "drinks"
+    }
+   ]
+  }
+ ]
+}

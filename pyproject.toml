@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "asienta"
+version = "0.1.0"
+description = "Stop typing supplier invoices. Any AI model reads them, plain rules check them, Sage 50 / A3 / Holded / Xero / QuickBooks import them. Self-hosted, zero dependencies."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Bruno Sancho Deltell" }]
+requires-python = ">=3.10"
+dependencies = []                      # the core runs on the standard library only
+keywords = ["invoices", "accounting", "ocr", "llm", "gemini", "claude", "sage 50", "contaplus", "a3", "holded",
+            "xero", "quickbooks", "openai", "ollama", "local-llm", "facturas", "contabilidad", "spain", "iva", "bookkeeping", "document-ai",
+            "self-hosted", "automation", "invoice-processing", "ap-automation"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Web Environment",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: Spanish",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Topic :: Office/Business :: Financial :: Accounting",
+]
+
+[project.optional-dependencies]
+claude = ["anthropic>=1.0"]
+sage50 = ["pymssql>=2.2"]
+excel = ["openpyxl>=3.1"]
+all = ["anthropic>=1.0", "pymssql>=2.2", "openpyxl>=3.1"]
+dev = ["pytest>=8", "ruff>=0.6", "openpyxl>=3.1", "reportlab>=4", "pymupdf>=1.24", "pillow>=10", "playwright>=1.45"]
+
+[project.scripts]
+asienta = "asienta.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/73bruno/asienta"
+Issues = "https://github.com/73bruno/asienta/issues"
+
+[tool.setuptools.packages.find]
+include = ["asienta*"]
+
+[tool.setuptools.package-data]
+asienta = ["web/*", "presets/*.ini", "demo/*.ini", "demo/*.json", "demo/invoices/*", "demo/ledger/*",
+           "config.example.ini"]
+
+[tool.ruff]
+line-length = 130
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B"]
+ignore = ["E731", "B008", "B023"]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/make_demo.py" = ["E501"]
+"scripts/record_demo.py" = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

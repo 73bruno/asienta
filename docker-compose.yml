@@ -1,0 +1,12 @@
+services:
+  asienta:
+    build: .
+    ports:
+      - "8760:8760"
+    environment:
+      ASIENTA_TOKEN: ${ASIENTA_TOKEN:?set ASIENTA_TOKEN}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+    volumes:
+      - ./asienta-data:/data
+    restart: unless-stopped

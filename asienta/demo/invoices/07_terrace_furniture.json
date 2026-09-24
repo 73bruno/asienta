@@ -1,0 +1,52 @@
+{
+ "invoices": [
+  {
+   "start_page": 1,
+   "doc_type": "invoice",
+   "supplier_name": "Terrace Furniture Demo, S.L.",
+   "supplier_tax_id": "B23958648",
+   "invoice_number": "T-0045",
+   "invoice_date": "2026-09-19",
+   "accounting_date": null,
+   "vat_breakdown": [
+    {
+     "vat_rate": 21,
+     "base": 2352.0,
+     "vat": 493.92
+    }
+   ],
+   "surcharge": 0,
+   "withholding": 0.0,
+   "total": 2845.92,
+   "due_dates": [
+    {
+     "date": "2026-10-19",
+     "amount": 2845.92
+    }
+   ],
+   "possible_asset": true,
+   "suggested_account": "216000000",
+   "notes": [],
+   "lines": [
+    {
+     "description": "Aluminium terrace table 70x70",
+     "amount": 870.0,
+     "vat_rate": 21,
+     "category": "other"
+    },
+    {
+     "description": "Stackable aluminium and rattan chair",
+     "amount": 1392.0,
+     "vat_rate": 21,
+     "category": "other"
+    },
+    {
+     "description": "Delivery and assembly",
+     "amount": 90.0,
+     "vat_rate": 21,
+     "category": "other"
+    }
+   ]
+  }
+ ]
+}

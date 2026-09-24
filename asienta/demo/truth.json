@@ -1,0 +1,259 @@
+{
+ "invoices": {
+  "01_mediterranean_foods.pdf": [
+   {
+    "tax_id": "B46182739",
+    "number": "MED-26/0917",
+    "number_alt": [],
+    "dates": [
+     "2026-09-15"
+    ],
+    "dates_alt": [],
+    "vat": {
+     "21": [
+      190.0,
+      39.9
+     ],
+     "10": [
+      153.2,
+      15.32
+     ],
+     "4": [
+      36.8,
+      1.47
+     ]
+    },
+    "surcharge": 0,
+    "withholding": 0.0,
+    "total": 436.69,
+    "supplier_account": "400000001",
+    "accounts": {
+     "600000100": 226.0,
+     "600000200": 154.0
+    }
+   }
+  ],
+  "02_levante_drinks.pdf": [
+   {
+    "tax_id": "A39201561",
+    "number": "LD-2026-4471",
+    "number_alt": [],
+    "dates": [
+     "2026-09-16"
+    ],
+    "dates_alt": [],
+    "vat": {
+     "21": [
+      391.0,
+      82.11
+     ],
+     "10": [
+      28.8,
+      2.88
+     ]
+    },
+    "surcharge": 0,
+    "withholding": 0.0,
+    "total": 504.79,
+    "supplier_account": "400000002",
+    "accounts": {
+     "600000200": 419.8
+    }
+   }
+  ],
+  "03_sparkle_cleaning.pdf": [
+   {
+    "tax_id": "B55073811",
+    "number": "SC/0388",
+    "number_alt": [],
+    "dates": [
+     "2026-09-10"
+    ],
+    "dates_alt": [],
+    "vat": {
+     "21": [
+      172.55,
+      36.24
+     ]
+    },
+    "surcharge": 0,
+    "withholding": 0.0,
+    "total": 208.79,
+    "supplier_account": "400000003",
+    "accounts": {
+     "600000400": 172.55
+    }
+   }
+  ],
+  "04_brothers_butchery.pdf": [
+   {
+    "tax_id": "B62834197",
+    "number": "BB-1182",
+    "number_alt": [],
+    "dates": [
+     "2026-09-08"
+    ],
+    "dates_alt": [],
+    "vat": {
+     "10": [
+      243.9,
+      24.39
+     ]
+    },
+    "surcharge": 0,
+    "withholding": 0.0,
+    "total": 268.29,
+    "supplier_account": "400000004",
+    "accounts": {
+     "600000100": 243.9
+    }
+   },
+   {
+    "tax_id": "B62834197",
+    "number": "BB-1183",
+    "number_alt": [],
+    "dates": [
+     "2026-09-12"
+    ],
+    "dates_alt": [],
+    "vat": {
+     "10": [
+      128.5,
+      12.85
+     ]
+    },
+    "surcharge": 0,
+    "withholding": 0.0,
+    "total": 141.35,
+    "supplier_account": "400000004",
+    "accounts": {
+     "600000100": 128.5
+    }
+   }
+  ],
+  "05_orchard_fruit_credit_note.pdf": [
+   {
+    "tax_id": "B77140259",
+    "number": "CN-26/015",
+    "number_alt": [],
+    "dates": [
+     "2026-09-18"
+    ],
+    "dates_alt": [],
+    "vat": {
+     "10": [
+      -18.4,
+      -1.84
+     ],
+     "4": [
+      -22.2,
+      -0.89
+     ]
+    },
+    "surcharge": 0,
+    "withholding": -0.0,
+    "total": -43.33,
+    "supplier_account": "400000005",
+    "accounts": {
+     "600000100": -40.6
+    }
+   }
+  ],
+  "06_harbour_accountants.pdf": [
+   {
+    "tax_id": "B88402177",
+    "number": "HA-2026/091",
+    "number_alt": [],
+    "dates": [
+     "2026-09-01"
+    ],
+    "dates_alt": [],
+    "vat": {
+     "21": [
+      350.0,
+      73.5
+     ]
+    },
+    "surcharge": 0,
+    "withholding": 52.5,
+    "total": 371.0,
+    "supplier_account": "410000001",
+    "accounts": {
+     "623000000": 350.0
+    }
+   }
+  ],
+  "07_terrace_furniture.pdf": [
+   {
+    "tax_id": "B23958648",
+    "number": "T-0045",
+    "number_alt": [],
+    "dates": [
+     "2026-09-19"
+    ],
+    "dates_alt": [],
+    "vat": {
+     "21": [
+      2352.0,
+      493.92
+     ]
+    },
+    "surcharge": 0,
+    "withholding": 0.0,
+    "total": 2845.92,
+    "supplier_account": "410000002",
+    "accounts": {
+     "216000000": 2352.0
+    }
+   }
+  ],
+  "08_cafe_norte_ticket.jpg": [
+   {
+    "tax_id": "B87654321",
+    "number": "F-2026/04192",
+    "number_alt": [],
+    "dates": [
+     "2026-09-24"
+    ],
+    "dates_alt": [],
+    "vat": {
+     "10": [
+      34.09,
+      3.41
+     ]
+    },
+    "surcharge": 0,
+    "withholding": 0.0,
+    "total": 37.5,
+    "supplier_account": "410000007",
+    "accounts": {
+     "629000000": 34.09
+    }
+   }
+  ],
+  "09_orchard_fruit_june.pdf": [
+   {
+    "tax_id": "B77140259",
+    "number": "OF-26/0612",
+    "number_alt": [],
+    "dates": [
+     "2026-06-28"
+    ],
+    "dates_alt": [],
+    "vat": {
+     "4": [
+      108.35,
+      4.33
+     ]
+    },
+    "surcharge": 0,
+    "withholding": 0.0,
+    "total": 112.68,
+    "supplier_account": "400000005",
+    "accounts": {
+     "600000100": 108.35
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,40 @@
+{
+ "invoices": [
+  {
+   "start_page": 1,
+   "doc_type": "invoice",
+   "supplier_name": "Harbour Accountants Demo, S.L.P.",
+   "supplier_tax_id": "B88402177",
+   "invoice_number": "HA-2026/091",
+   "invoice_date": "2026-09-01",
+   "accounting_date": null,
+   "vat_breakdown": [
+    {
+     "vat_rate": 21,
+     "base": 350.0,
+     "vat": 73.5
+    }
+   ],
+   "surcharge": 0,
+   "withholding": 52.5,
+   "total": 371.0,
+   "due_dates": [
+    {
+     "date": "2026-09-10",
+     "amount": 371.0
+    }
+   ],
+   "possible_asset": false,
+   "suggested_account": "",
+   "notes": [],
+   "lines": [
+    {
+     "description": "Accounting and tax advice, September 2026",
+     "amount": 350.0,
+     "vat_rate": 21,
+     "category": "other"
+    }
+   ]
+  }
+ ]
+}

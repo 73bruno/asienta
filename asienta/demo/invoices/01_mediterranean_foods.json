@@ -1,0 +1,80 @@
+{
+ "invoices": [
+  {
+   "start_page": 1,
+   "doc_type": "invoice",
+   "supplier_name": "Mediterranean Foods Demo, S.L.",
+   "supplier_tax_id": "B46182739",
+   "invoice_number": "MED-26/0917",
+   "invoice_date": "2026-09-15",
+   "accounting_date": null,
+   "vat_breakdown": [
+    {
+     "vat_rate": 21,
+     "base": 190.0,
+     "vat": 39.9
+    },
+    {
+     "vat_rate": 10,
+     "base": 153.2,
+     "vat": 15.32
+    },
+    {
+     "vat_rate": 4,
+     "base": 36.8,
+     "vat": 1.47
+    }
+   ],
+   "surcharge": 0,
+   "withholding": 0.0,
+   "total": 436.69,
+   "due_dates": [
+    {
+     "date": "2026-10-15",
+     "amount": 436.69
+    }
+   ],
+   "possible_asset": false,
+   "suggested_account": "",
+   "notes": [],
+   "lines": [
+    {
+     "description": "Wheat flour T-55, 25 kg sack",
+     "amount": 36.8,
+     "vat_rate": 4,
+     "category": "food"
+    },
+    {
+     "description": "Crushed tomato, 5 kg tin",
+     "amount": 41.1,
+     "vat_rate": 10,
+     "category": "food"
+    },
+    {
+     "description": "Aged Manchego cheese, 3 kg wedge",
+     "amount": 82.4,
+     "vat_rate": 10,
+     "category": "food"
+    },
+    {
+     "description": "Gordal olives, 2 kg tub",
+     "amount": 29.7,
+     "vat_rate": 10,
+     "category": "food"
+    },
+    {
+     "description": "Red wine D.O. Alicante crianza, case of 6",
+     "amount": 154.0,
+     "vat_rate": 21,
+     "category": "drinks"
+    },
+    {
+     "description": "Paper napkins 2-ply, pack of 500",
+     "amount": 36.0,
+     "vat_rate": 21,
+     "category": "packaging"
+    }
+   ]
+  }
+ ]
+}

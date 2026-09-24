@@ -1,0 +1,52 @@
+{
+ "invoices": [
+  {
+   "start_page": 1,
+   "doc_type": "invoice",
+   "supplier_name": "Sparkle Cleaning Demo, S.L.",
+   "supplier_tax_id": "B55073811",
+   "invoice_number": "SC/0388",
+   "invoice_date": "2026-09-10",
+   "accounting_date": null,
+   "vat_breakdown": [
+    {
+     "vat_rate": 21,
+     "base": 172.55,
+     "vat": 36.24
+    }
+   ],
+   "surcharge": 0,
+   "withholding": 0.0,
+   "total": 208.79,
+   "due_dates": [
+    {
+     "date": "2026-10-10",
+     "amount": 208.79
+    }
+   ],
+   "possible_asset": false,
+   "suggested_account": "",
+   "notes": [],
+   "lines": [
+    {
+     "description": "Industrial dishwasher detergent 20 L",
+     "amount": 97.8,
+     "vat_rate": 21,
+     "category": "cleaning"
+    },
+    {
+     "description": "Rinse aid 10 L",
+     "amount": 36.5,
+     "vat_rate": 21,
+     "category": "cleaning"
+    },
+    {
+     "description": "Kitchen degreaser 5 L",
+     "amount": 38.25,
+     "vat_rate": 21,
+     "category": "cleaning"
+    }
+   ]
+  }
+ ]
+}

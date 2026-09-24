@@ -1,0 +1,69 @@
+{
+ "invoices": [
+  {
+   "start_page": 1,
+   "doc_type": "invoice",
+   "supplier_name": "Levante Drinks Demo, S.A.",
+   "supplier_tax_id": "A39201561",
+   "invoice_number": "LD-2026-4471",
+   "invoice_date": "2026-09-16",
+   "accounting_date": null,
+   "vat_breakdown": [
+    {
+     "vat_rate": 21,
+     "base": 391.0,
+     "vat": 82.11
+    },
+    {
+     "vat_rate": 10,
+     "base": 28.8,
+     "vat": 2.88
+    }
+   ],
+   "surcharge": 0,
+   "withholding": 0.0,
+   "total": 504.79,
+   "due_dates": [
+    {
+     "date": "2026-10-16",
+     "amount": 504.79
+    }
+   ],
+   "possible_asset": false,
+   "suggested_account": "",
+   "notes": [],
+   "lines": [
+    {
+     "description": "Draught beer keg 30 L",
+     "amount": 288.0,
+     "vat_rate": 21,
+     "category": "drinks"
+    },
+    {
+     "description": "Cola, case of 24 x 33 cl",
+     "amount": 73.0,
+     "vat_rate": 21,
+     "category": "drinks"
+    },
+    {
+     "description": "Mineral water 1.5 L, pack of 6",
+     "amount": 28.8,
+     "vat_rate": 10,
+     "category": "drinks"
+    },
+    {
+     "description": "Returnable keg deposit",
+     "amount": 120.0,
+     "vat_rate": 21,
+     "category": "packaging"
+    },
+    {
+     "description": "Deposit refund, empty kegs",
+     "amount": -90.0,
+     "vat_rate": 21,
+     "category": "packaging"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,58 @@
+{
+ "invoices": [
+  {
+   "start_page": 1,
+   "doc_type": "invoice",
+   "supplier_name": "Orchard Fruit Demo, S.L.",
+   "supplier_tax_id": "B77140259",
+   "invoice_number": "OF-26/0612",
+   "invoice_date": "2026-06-28",
+   "accounting_date": null,
+   "vat_breakdown": [
+    {
+     "vat_rate": 4,
+     "base": 108.35,
+     "vat": 4.33
+    }
+   ],
+   "surcharge": 0,
+   "withholding": 0.0,
+   "total": 112.68,
+   "due_dates": [
+    {
+     "date": "2026-07-28",
+     "amount": 112.68
+    }
+   ],
+   "possible_asset": false,
+   "suggested_account": "",
+   "notes": [],
+   "lines": [
+    {
+     "description": "Vine tomatoes",
+     "amount": 46.25,
+     "vat_rate": 4,
+     "category": "food"
+    },
+    {
+     "description": "Romaine lettuce",
+     "amount": 19.5,
+     "vat_rate": 4,
+     "category": "food"
+    },
+    {
+     "description": "Lemons",
+     "amount": 13.0,
+     "vat_rate": 4,
+     "category": "food"
+    },
+    {
+     "description": "Strawberries, 2 kg box",
+     "amount": 29.6,
+     "vat_rate": 4,
+     "category": "food"
+    }
+   ]
+  }
+ ]
+}
