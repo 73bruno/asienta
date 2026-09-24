@@ -30,6 +30,18 @@ few visible errors and zero silent ones is safer than a slightly more accurate o
 quietly. The truth format is documented at the top of `asienta/bench.py`; the demo has one
 (`asienta bench asienta/demo/invoices --truth asienta/demo/truth.json --demo`).
 
+Results on 27 real supplier invoices (162 fields), checked by hand, September 2026:
+
+| Model | Fields right | Invoices perfect | Silent errors | Supplier right | Accounts right | Cost / invoice | Time / invoice |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| gemini-3.8-flash (default) | 160/162 | 25/27 | 1 | 27/27 | 24/26 | 0.9 ¢ | 6 s |
+| gemini-3.7-flash | 160/162 | 25/27 | 1 | 27/27 | 25/26 | 0.8 ¢ | 6 s |
+| gemini-3.5-flash | 160/162 | 25/27 | 0 | 27/27 | 25/26 | 3.5 ¢ | 13 s |
+| gemini-3.5-flash-lite | 156/162 | 21/27 | 2 | 27/27 | 24/26 | 0.3 ¢ | 3 s |
+| gemini-3.1-flash-lite | 160/162 | 25/27 | 0 | 27/27 | 24/26 | 0.2 ¢ | 4 s |
+
+Other providers weren't part of this run. If you bench one, a pull request adding its row is welcome.
+
 Rules of thumb from real use:
 
 - Thermal tickets and phone photos are where models differ most (digits like 8/6, 1/7).

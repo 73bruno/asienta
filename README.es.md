@@ -7,6 +7,7 @@
 Lee facturas de proveedores con un modelo de IA y las convierte en asientos<br>
 para **Sage 50, ContaPlus, A3, Holded, Xero, QuickBooks** o CSV.
 
+[![CI](https://github.com/73bruno/asienta/actions/workflows/ci.yml/badge.svg)](https://github.com/73bruno/asienta/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.10%2B-3776AB?logo=python&logoColor=white)
 ![Dependencias](https://img.shields.io/badge/dependencias-0-16A34A)
 ![Licencia](https://img.shields.io/badge/licencia-MIT-4F46E5)
@@ -27,19 +28,33 @@ para **Sage 50, ContaPlus, A3, Holded, Xero, QuickBooks** o CSV.
 
 El modelo solo hace el paso 2. El resto es código normal: cada propuesta se puede explicar y probar, y el modelo se puede cambiar.
 
-## Funciona con
+## Funciona con cualquier modelo de IA
 
-| Programa de contabilidad | Modelos de IA | Tu contabilidad, leída de | Las facturas entran por |
-|---|---|---|---|
-| Sage 50 · importación XDIARIO | Google Gemini | CSV exportados (cualquier programa) | Correo (IMAP) |
-| Sage 50 · importador Excel *(beta)* | Anthropic Claude | Exportación de cuentas de Sage 50 / ContaPlus | Carpeta vigilada |
-| ContaPlus *(beta)* | OpenAI | Sage 50 en vivo, solo lectura (SQL Server) | Arrastrar y soltar |
-| a3ASESOR eco / con *(beta)* | Cualquier API compatible con OpenAI: Mistral, OpenRouter, Azure… | | Cámara del móvil |
-| Holded *(beta)* | Locales: Ollama, LM Studio, vLLM | | API HTTP |
-| Xero · QuickBooks Online *(beta)* | | | |
-| CSV · JSON | | | |
+El modelo solo tiene que leer un PDF o una foto y devolver JSON, así que vale cualquier modelo con visión. **Gemini viene por defecto.** Estos son los modelos de Gemini probados con 27 facturas reales de proveedores (162 datos), revisadas a mano:
 
-Los formatos *beta* siguen el formato de importación publicado por cada programa y tienen tests, pero aún no se han importado en el programa real. Prueba primero en una empresa de pruebas y [cuenta qué tal](https://github.com/73bruno/asienta/issues/new?template=exporter.md).
+| Modelo | Datos bien | Facturas perfectas | Errores silenciosos | Coste / factura | Tiempo / factura |
+|---|:---:|:---:|:---:|:---:|:---:|
+| **gemini-3.8-flash** (por defecto) | 160/162 | 25/27 | 1 | 0,9 ¢ | 6 s |
+| gemini-3.7-flash | 160/162 | 25/27 | 1 | 0,8 ¢ | 6 s |
+| gemini-3.5-flash | 160/162 | 25/27 | 0 | 3,5 ¢ | 13 s |
+| gemini-3.5-flash-lite | 156/162 | 21/27 | 2 | 0,3 ¢ | 3 s |
+| gemini-3.1-flash-lite | 160/162 | 25/27 | 0 | 0,2 ¢ | 4 s |
+
+Los *errores silenciosos* son datos mal leídos sin ningún aviso; el resto quedaron marcados para revisar. Costes en céntimos de dólar, con precios de septiembre de 2026.
+
+Claude, OpenAI, cualquier API compatible con OpenAI (Mistral, OpenRouter, Azure…) y los modelos locales (Ollama, LM Studio, vLLM) se conectan igual, con una línea en `config.ini`. No entraron en esta prueba: `asienta bench` saca la misma tabla para cualquier modelo con tus propias facturas.
+
+## Funciona con tu programa de contabilidad
+
+- **Sage 50**: importación XDIARIO con su complemento gratuito, y conexión en vivo, solo lectura, a su SQL Server para conocer tus proveedores y cuentas.
+- **ContaPlus, importador Excel de Sage 50, a3ASESOR, Holded, Xero, QuickBooks Online** *(beta)*: hechos según el formato de importación publicado por cada programa y con tests, pero aún sin importar en el programa real. Prueba primero en una empresa de pruebas y [cuenta qué tal](https://github.com/73bruno/asienta/issues/new?template=exporter.md).
+- **CSV y JSON** para todo lo demás.
+
+Tu contabilidad (proveedores, cuentas, a qué suele ir cada proveedor) la lee de CSV exportados de cualquier programa, de la exportación de cuentas de Sage 50 / ContaPlus o de Sage 50 en vivo.
+
+## Las facturas entran por
+
+Correo (un buzón IMAP, también reenvíos), una carpeta vigilada (escáner, Dropbox, carpeta compartida), arrastrando, con la cámara del móvil o por [API HTTP](docs/api.md) para n8n, Zapier o scripts.
 
 ## Prueba la demo
 
@@ -103,13 +118,13 @@ Para comparar modelos con tus facturas, `asienta bench` cuenta los datos que cad
 
 | | |
 |---|---|
-| Lectura con IA | ~5 s por factura con Gemini Flash, tres a la vez, en segundo plano |
+| Lectura con IA | 3–13 s por factura según el modelo (ver arriba), tres a la vez, en segundo plano |
 | Reglas y comprobaciones | ~2 ms por factura |
 | Exportar | 1.000 facturas en menos de 0,25 s |
 | Memoria / arranque | 26 MB / menos de 0,5 s |
 | Paquete | 240 KB, sin dependencias: Python estándar, SQLite, JavaScript sin compilar |
 
-Medido en un Apple M1; `python scripts/speed.py` lo mide en tu equipo. Solo cuesta dinero la lectura con IA: menos de un céntimo por factura con Gemini Flash, nada con un modelo local.
+Medido en un Apple M1; `python scripts/speed.py` lo mide en tu equipo. Solo cuesta dinero la lectura con IA, y nada con un modelo local.
 
 ## A tener en cuenta
 

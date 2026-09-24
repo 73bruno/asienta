@@ -23,7 +23,8 @@ MAX_FILE = 15 * 1024 * 1024
 READ_INTERVAL = 1.5          # minimum seconds between two AI calls, to be gentle with the API
 STUCK_MINUTES = 10           # a reading older than this has hung
 # $ per million tokens (input, output). Override with [reader] price_input / price_output.
-PRICES = {'gemini-3.8-flash': (0.75, 3.75), 'gemini-3.5-flash-lite': (0.30, 2.50),
+PRICES = {'gemini-3.8-flash': (0.75, 3.75), 'gemini-3.7-flash': (0.75, 3.75), 'gemini-3.5-flash': (1.50, 9.00),
+          'gemini-3.5-flash-lite': (0.30, 2.50), 'gemini-3.1-flash-lite': (0.25, 1.50),
           'claude-opus-5': (5.0, 25.0), 'claude-sonnet-5': (2.0, 10.0), 'claude-haiku-4-5': (1.0, 5.0),
           'demo': (0.75, 3.75)}
 

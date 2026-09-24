@@ -28,19 +28,33 @@ for **Sage 50, ContaPlus, A3, Holded, Xero, QuickBooks** or plain CSV.
 
 The model only does step 2. Everything else is plain code, so every proposal can be explained and tested, and the model can be swapped.
 
-## Works with
+## Works with any AI model
 
-| Accounting software | AI models | Your ledger, read from | Invoices in by |
-|---|---|---|---|
-| Sage 50 · XDIARIO import | Google Gemini | CSV exports (any program) | Email (IMAP) |
-| Sage 50 · Excel importer *(beta)* | Anthropic Claude | Sage 50 / ContaPlus accounts export | Watched folder |
-| ContaPlus *(beta)* | OpenAI | Sage 50 live, read-only (SQL Server) | Drag & drop |
-| a3ASESOR eco / con *(beta)* | Any OpenAI-compatible API: Mistral, OpenRouter, Azure… | | Phone camera |
-| Holded *(beta)* | Local: Ollama, LM Studio, vLLM | | HTTP API |
-| Xero · QuickBooks Online *(beta)* | | | |
-| CSV · JSON | | | |
+The model only has to read a PDF or photo and return JSON, so any vision model works. **Gemini is the default.** These are the Gemini models tested on 27 real supplier invoices (162 fields), checked by hand:
 
-*Beta* formats follow each program's published import format and are covered by tests, but haven't been imported into the real program yet. Try a test company first, and [report how it went](https://github.com/73bruno/asienta/issues/new?template=exporter.md).
+| Model | Fields right | Invoices perfect | Silent errors | Cost / invoice | Time / invoice |
+|---|:---:|:---:|:---:|:---:|:---:|
+| **gemini-3.8-flash** (default) | 160/162 | 25/27 | 1 | 0.9 ¢ | 6 s |
+| gemini-3.7-flash | 160/162 | 25/27 | 1 | 0.8 ¢ | 6 s |
+| gemini-3.5-flash | 160/162 | 25/27 | 0 | 3.5 ¢ | 13 s |
+| gemini-3.5-flash-lite | 156/162 | 21/27 | 2 | 0.3 ¢ | 3 s |
+| gemini-3.1-flash-lite | 160/162 | 25/27 | 0 | 0.2 ¢ | 4 s |
+
+*Silent errors* are wrong values that no check warned about; the others were flagged for review. Costs in US cents at September 2026 prices.
+
+Claude, OpenAI, any OpenAI-compatible API (Mistral, OpenRouter, Azure…) and local models (Ollama, LM Studio, vLLM) plug in the same way, with one line in `config.ini`. They weren't part of this test: `asienta bench` produces the same table for any model on your own invoices.
+
+## Works with your accounting software
+
+- **Sage 50**: XDIARIO import through its free add-on, plus a live, read-only connection to its SQL Server to know your suppliers and accounts.
+- **ContaPlus, Sage 50 Excel importer, a3ASESOR, Holded, Xero, QuickBooks Online** *(beta)*: written from each program's published import format and covered by tests, not yet imported into the real program. Try a test company first and [report how it went](https://github.com/73bruno/asienta/issues/new?template=exporter.md).
+- **CSV and JSON** for anything else.
+
+It reads your ledger (suppliers, accounts, what each supplier usually goes to) from CSV exports of any program, a Sage 50 / ContaPlus accounts export, or Sage 50 live.
+
+## Invoices come in by
+
+Email (an IMAP inbox, forwarded mail included), a watched folder (scanner, Dropbox, shared drive), drag & drop, the phone camera or an [HTTP API](docs/api.md) for n8n, Zapier or scripts.
 
 ## Try the demo
 
@@ -121,13 +135,13 @@ To compare models on your own invoices, `asienta bench` counts the fields each o
 
 | | |
 |---|---|
-| AI reading | ~5 s per invoice with Gemini Flash, three in parallel, in the background |
+| AI reading | 3–13 s per invoice depending on the model (see above), three in parallel, in the background |
 | Rules and checks | ~2 ms per invoice |
 | Export | 1,000 invoices in under 0.25 s |
 | Memory / start-up | 26 MB / under 0.5 s |
 | Package | 240 KB, no dependencies: standard-library Python, SQLite, plain JavaScript |
 
-Measured on an Apple M1; run `python scripts/speed.py` on yours. Only the AI reading costs money: under one cent per invoice with Gemini Flash, nothing with a local model.
+Measured on an Apple M1; run `python scripts/speed.py` on yours. Only the AI reading costs money, and nothing with a local model.
 
 ## Good to know
 
